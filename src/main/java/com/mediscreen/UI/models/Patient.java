@@ -1,6 +1,6 @@
 package com.mediscreen.UI.models;
 
-import java.time.LocalDate;
+import javax.validation.constraints.NotBlank;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,12 +13,16 @@ public class Patient {
     
     protected Integer id;
 
+    @NotBlank
     private String firstName;
 
+    @NotBlank
     private String lastName;
 
-    private LocalDate birthdate;
+    @NotBlank
+    private String birthdate;
 
+    @NotBlank
     private String sex;
 
     private String address;
