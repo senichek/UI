@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	  xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8"/>
+<title>Patients</title>
+<link th:href="@{/css/main.css}" rel="stylesheet" />
+<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+</head>
+<body>
+	<div class="main-container">
+	<h2>Patients List</h2>
+		<a href="/patient/add" class="btn btn-primary btn-sm">Add New</a>
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>Patient ID</th>
+					<th>First Name</th>
+					<th>Last Name</th>
+					<th>Date of birth</th>
+					<th>Sex</th>
+					<th>Address</th>
+					<th>Phone</th>
+				</tr>
+			</thead>
+			<tbody>
+				<!-- All the variables we work with come from model within the Controller. -->
+				<tr th:each="patient: ${patients}">
+				  <td th:text="${patient.id}">
+				  <td th:text="${patient.firstName}">
+				  <td th:text="${patient.lastName}">
+				  <td th:text="${patient.birthdate}">
+				  <td th:text="${patient.sex}">
+				  <td th:text="${patient.address}">
+				  <td th:text="${patient.phone}">
+					<!-- https://www.baeldung.com/spring-thymeleaf-path-variables -->
+				  <td> <a th:href="@{/patient/update/{pathParam}(pathParam=${patient.id})}" class="btn btn-link" role="button" aria-pressed="true">Edit</a> |  
+					   <a th:href="@{/patient/delete/{pathParam}(pathParam=${patient.id})}" class="btn btn-link" role="button" aria-pressed="true">Delete</a> |
+					   <a th:href="@{/patHistory/{pathParam}(pathParam=${patient.id})}" class="btn btn-link" role="button" aria-pressed="true">History</a>
+				  </td>
+			  </tr>
+			  </tbody>
+			<tbody>
+			</tbody>
+		</table>
+</div>
+</body>
+</html>
