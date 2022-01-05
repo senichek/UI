@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @FeignClient(name = "ui-patients", url = "localhost:8080")
-public interface PatientClient {
+public interface PatientFeignClient {
 
     @GetMapping(value = "/rest/patient/all")
     List<Patient> getAllPatients();

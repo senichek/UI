@@ -1,7 +1,7 @@
 package com.mediscreen.UI.controllers;
 
 import com.mediscreen.UI.models.Patient;
-import com.mediscreen.UI.webClients.PatientClient;
+import com.mediscreen.UI.webClients.PatientFeignClient;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,17 +16,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class PatientController {
 
     @Autowired
-    private PatientClient patientClient;
+    private PatientFeignClient patientFeignClient;
 
     @GetMapping(value = "/patient/list")
     public String showAll(Model model) {
-        model.addAttribute("patients", patientClient.getAllPatients());
+        model.addAttribute("patients", patientFeignClient.getAllPatients());
         return "patient/list";
     }
 
     @GetMapping("/patient/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) throws Exception {
-        model.addAttribute("patient", patientClient.getPatientById(id));
+        model.addAttribute("patient", patientFeignClient.getPatientById(id));
         return "patient/edit";
     }
 
@@ -48,7 +48,7 @@ public class PatientController {
             }
             return "patient/edit";
         } else {
-            patientClient.updatePatient(patient);
+            patientFeignClient.updatePatient(patient);
             return "redirect:/patient/list";
         }
     }
@@ -75,14 +75,14 @@ public class PatientController {
             }
             return "patient/add";
         } else {
-            patientClient.createPatient(patient);
+            patientFeignClient.createPatient(patient);
             return "redirect:/patient/list";
         }
     }
 
     @GetMapping("/patient/delete/{id}")
     public String deleteUser(@PathVariable("id") Integer id, Model model) throws Exception {
-        patientClient.deletePatientById(id);
+        patientFeignClient.deletePatientById(id);
         return "redirect:/patient/list";
     }
 }

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	  xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8"/>
+<title>History</title>
+<link th:href="@{/css/main.css}" rel="stylesheet" />
+<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+</head>
+<body>
+<div class="create-update-form-container">
+		<h2>Edit Note</h2>
+    <form th:action="@{/patHistory/update/{noteId}(noteId=${note.id})}" th:object="${note}" method="post">
+      <input type="hidden" name="id" class="form-control" th:value=${note.id}>
+      <input type="hidden" name="ownerId" class="form-control" th:value=${note.ownerId}>
+        <div class="form-group">
+          <label for="formGroupExampleInput">Date</label>
+          <input type="date" name="date" class="form-control" th:value="${note.date}" placeholder="Date">
+          <div th:if="${date}">
+            <p th:text="${date}"  style="color: rgb(206, 37, 37)"></p>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="formGroupExampleInput2">Observation</label>
+          <input type="text" name="observation" class="form-control" th:value="${note.observation}" placeholder="Observation">
+          <div th:if="${observation}">
+            <p th:text="${observation}"  style="color: rgb(206, 37, 37)"></p>
+          </div>
+        </div>
+        <a class="btn btn-danger" th:href="@{/patHistory/{patientId}(patientId=${note.ownerId})}" role="button">Cancel</a>
+        <button type="submit" class="btn btn-primary">Save Note</button>
+    </form>
+</div>
+</body>
+</html>
