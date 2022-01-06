@@ -3,6 +3,7 @@ package com.mediscreen.UI.controllers;
 import com.mediscreen.UI.models.Note;
 import com.mediscreen.UI.webClients.NoteFeignClient;
 import com.mediscreen.UI.webClients.PatientFeignClient;
+import com.mediscreen.UI.webClients.ReportFeignClient;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class NoteController {
@@ -22,10 +24,16 @@ public class NoteController {
     @Autowired
     private PatientFeignClient patientFeignClient;
 
+    @Autowired
+    private ReportFeignClient reportFeignClient;
+
     @GetMapping("/patHistory/{patientId}")
-    public String showHistory(@PathVariable("patientId") Integer patientId, Model model) throws Exception {
+    public String showHistory(@PathVariable("patientId") Integer patientId, Model model, @RequestParam(name = "generateReport", required = false) String generateReport) throws Exception {
         model.addAttribute("notes", noteFeignClient.getNotesByUserId(patientId));
         model.addAttribute("patientId", patientId);
+        if (generateReport != null && generateReport.equals("true")) {
+            model.addAttribute("report", reportFeignClient.getReport(patientId));
+        }
         return "note/list";
     }
 

@@ -22,7 +22,9 @@
         </div>
         <div class="form-group">
           <label for="formGroupExampleInput2">Observation</label>
-          <input type="text" name="observation" class="form-control" th:value="${note.observation}" placeholder="Observation">
+          <!-- <input type="text" name="observation" class="form-control" th:value="${note.observation}" placeholder="Observation"> -->
+          <!-- textarea doesn't support th:value, use th:text to insert a value -->
+          <textarea class="form-control" name="observation" th:text="${note.observation}" rows="4"></textarea>
           <div th:if="${observation}">
             <p th:text="${observation}"  style="color: rgb(206, 37, 37)"></p>
           </div>
