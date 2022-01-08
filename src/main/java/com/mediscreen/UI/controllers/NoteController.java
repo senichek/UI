@@ -27,7 +27,7 @@ public class NoteController {
     @Autowired
     private ReportFeignClient reportFeignClient;
 
-    @GetMapping("/patHistory/{patientId}")
+    @GetMapping(value = "/patHistory/{patientId}")
     public String showHistory(@PathVariable("patientId") Integer patientId, Model model, @RequestParam(name = "generateReport", required = false) String generateReport) throws Exception {
         model.addAttribute("notes", noteFeignClient.getNotesByUserId(patientId));
         model.addAttribute("patientId", patientId);
@@ -43,7 +43,7 @@ public class NoteController {
         return "note/edit";
     }
 
-    @PostMapping("/patHistory/update/{noteId}")
+    @PostMapping(value = "/patHistory/update/{noteId}")
     public String editNote(@PathVariable("noteId") String noteId, @Validated Note note, 
     BindingResult result, Model model) throws Exception {
         if (result.hasErrors()) {
@@ -60,19 +60,19 @@ public class NoteController {
         }
     }
 
-    @GetMapping("/patHistory/delete/{patientId}/{noteId}")
-    public String deleteUser(@PathVariable("patientId") String patientId, @PathVariable("noteId") String noteId) throws Exception {
+    @GetMapping(value = "/patHistory/delete/{patientId}/{noteId}")
+    public String deleteNote(@PathVariable("patientId") String patientId, @PathVariable("noteId") String noteId) throws Exception {
         noteFeignClient.deleteNote(noteId);
         return "redirect:/patHistory/" + patientId;
     }
 
-    @GetMapping("/patHistory/add/{patientId}")
+    @GetMapping(value = "/patHistory/add/{patientId}")
     public String showCreateForm(@PathVariable("patientId") Integer patientId, Model model) {
         model.addAttribute("patient", patientFeignClient.getPatientById(patientId));
         return "note/add";
     }
 
-    @PostMapping("/patHistory/add/{patientId}")
+    @PostMapping(value = "/patHistory/add/{patientId}")
     public String createNote(@PathVariable("patientId") Integer patientId, @Validated Note note, 
     BindingResult result, Model model) throws Exception {
         model.addAttribute("patient", patientFeignClient.getPatientById(patientId));
