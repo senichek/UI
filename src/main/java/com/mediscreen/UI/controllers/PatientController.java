@@ -40,8 +40,8 @@ public class PatientController {
             if (result.getFieldError("lastName") != null) {
                 model.addAttribute("lastName", result.getFieldError("lastName").getDefaultMessage());
             }
-            if (result.getFieldError("dateOfBirth") != null) {
-                model.addAttribute("dateOfBirth", result.getFieldError("dateOfBirth").getDefaultMessage());
+            if (result.getFieldError("birthdate") != null) {
+                model.addAttribute("birthdate", result.getFieldError("birthdate").getDefaultMessage());
             }
             if (result.getFieldError("sex") != null) {
                 model.addAttribute("sex", result.getFieldError("sex").getDefaultMessage());

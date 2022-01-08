@@ -89,7 +89,6 @@ public class NoteControllerTest {
 
     @Test
     public void createNoteTest() throws Exception {
-        // /patHistory/add/{patientId}
         mockMvc.perform(post("/patHistory/add/1?date=2022-01-01&observation=Test&ownerId=1"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/patHistory/1"))
